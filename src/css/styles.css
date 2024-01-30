@@ -27,5 +27,40 @@
   width: 88px;
   border-radius: 8px;
   color: #fff;
-    background: #4E75FF;
+  background: #4E75FF;
+  cursor: pointer;
+}
+.gallery {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+}
+.gallery-link {
+  text-decoration: none;
+  color: inherit;
+.gallery-image {
+  width: 360px;
+  height: 200px;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
