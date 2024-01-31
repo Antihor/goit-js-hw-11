@@ -4,26 +4,16 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const formRef = document.querySelector('.search-form');
-const container = document.querySelector('.container');
+const containerRef = document.querySelector('.container');
 const galleryRef = document.querySelector('.gallery');
-
-function loaderOn() {
-  const loader = document.createElement('span');
-  loader.classList.add('span');
-  container.append(loader);
-}
-function loaderOff() {
-  const loader = document.querySelector('.span');
-  if (loader) {
-    loader.remove();
-  }
-}
 
 formRef.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
   e.preventDefault();
+
   loaderOn();
+
   galleryRef.innerHTML = '';
 
   const BASE_URL = 'https://pixabay.com/api/';
@@ -47,8 +37,10 @@ function onSubmit(e) {
           title: '',
           message:
             'Sorry, there are no images matching your search query. Please try again!',
-          position: 'bottomCenter',
+          position: 'topRight',
         });
+
+        formRef.reset();
       } else {
         const markup = data.hits
           .map(
@@ -74,13 +66,13 @@ function onSubmit(e) {
 
         galleryRef.insertAdjacentHTML('beforeend', markup);
 
-        const lightbox = new SimpleLightbox('.gallery a', options);
+        const lightbox = new SimpleLightbox('.gallery a', optionsSL);
         lightbox.on('show.simplelightbox');
         lightbox.refresh();
+
         formRef.reset();
       }
     })
-
     .catch(error => {
       console.log(error);
     })
@@ -88,10 +80,21 @@ function onSubmit(e) {
       loaderOff();
     });
 
-  const options = {
+  function loaderOn() {
+    const loader = document.createElement('span');
+    loader.classList.add('loader');
+    containerRef.append(loader);
+  }
+  function loaderOff() {
+    const loader = document.querySelector('.loader');
+    if (loader) {
+      loader.remove();
+    }
+  }
+
+  const optionsSL = {
     captions: true,
     captionSelector: 'img',
-    captionType: 'attr',
     captionsData: 'alt',
     captionPosition: 'bottom',
     animation: 250,
