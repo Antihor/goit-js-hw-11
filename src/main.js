@@ -32,7 +32,7 @@ function onSubmit(e) {
       return resp.json();
     })
     .then(data => {
-      if (data.hits.length === 0) {
+      if (data.hits.length === 0 || searchQuery === '') {
         iziToast.error({
           title: '',
           message:
@@ -53,8 +53,8 @@ function onSubmit(e) {
               comments,
               downloads,
             }) => {
-              return `<a href="${webformatURL}" class="gallery-link"><li class="gallery-item">
-          <img class="gallery-image" src="${largeImageURL}" alt="${tags}">
+              return `<a href="${largeImageURL}" class="gallery-link"><li class="gallery-item">
+          <img class="gallery-image" src="${webformatURL}" alt="${tags}">
           <p>Likes: ${likes}</p>
           <p>Views: ${views}</p>
           <p>Comments: ${comments}</p>
@@ -79,24 +79,23 @@ function onSubmit(e) {
     .finally(() => {
       loaderOff();
     });
-
-  function loaderOn() {
-    const loader = document.createElement('span');
-    loader.classList.add('loader');
-    containerRef.append(loader);
-  }
-  function loaderOff() {
-    const loader = document.querySelector('.loader');
-    if (loader) {
-      loader.remove();
-    }
-  }
-
-  const optionsSL = {
-    captions: true,
-    captionSelector: 'img',
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-    animation: 250,
-  };
 }
+
+function loaderOn() {
+  const loader = document.createElement('span');
+  loader.classList.add('loader');
+  containerRef.append(loader);
+}
+function loaderOff() {
+  const loader = document.querySelector('.loader');
+  if (loader) {
+    loader.remove();
+  }
+}
+const optionsSL = {
+  captions: true,
+  captionSelector: 'img',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  animation: 250,
+};
