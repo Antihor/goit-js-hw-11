@@ -66,8 +66,6 @@ function onSubmit(e) {
 
         galleryRef.insertAdjacentHTML('beforeend', markup);
 
-        const lightbox = new SimpleLightbox('.gallery a', optionsSL);
-        lightbox.on('show.simplelightbox');
         lightbox.refresh();
 
         formRef.reset();
@@ -99,3 +97,5 @@ const optionsSL = {
   captionPosition: 'bottom',
   animation: 250,
 };
+const lightbox = new SimpleLightbox('.gallery a', optionsSL);
+lightbox.on('show.simplelightbox');
